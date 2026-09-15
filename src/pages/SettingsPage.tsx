@@ -119,7 +119,7 @@ export function SettingsPage() {
           About & disclosure
         </h2>
         <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-          Top10Today is a community deal board: members post deals (often via their own affiliate
+          TenForToday is a community deal board: members post deals (often via their own affiliate
           links and may earn a commission), everyone votes, and only the ten best deals of the day
           make the board. Deal snapshots are sourced daily from Slickdeals and marked
           accordingly.

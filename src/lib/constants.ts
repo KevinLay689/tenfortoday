@@ -26,6 +26,7 @@ export const CATEGORY_LABELS: Record<Category, string> = Object.fromEntries(
 
 export const CATEGORY_IDS = CATEGORIES.map((c) => c.id)
 
-export const SITE_NAME = 'Top10Today'
+export const SITE_NAME = 'TenForToday'
+export const SITE_DOMAIN = 'tenfortoday.com'
 /** Where the daily reset clock lives. */
 export const RESET_TIMEZONE = 'America/Los_Angeles'

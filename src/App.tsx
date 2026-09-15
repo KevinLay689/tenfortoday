@@ -28,7 +28,7 @@ function Header({ onSignIn }: { onSignIn: () => void }) {
         <NavLink to="/" className="flex shrink-0 items-center gap-2" aria-label={SITE_NAME}>
           <img src="/logo.svg" alt="" width={30} height={30} className="rounded-lg" />
           <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white">
-            top10<span className="text-amber-500">today</span>
+            tenfor<span className="text-amber-500">today</span>
           </span>
         </NavLink>
 
@@ -91,11 +91,11 @@ function Footer() {
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-2 px-4 text-center">
         <div className="flex items-center gap-1.5 text-sm font-black text-slate-400">
           <img src="/logo.svg" alt="" width={18} height={18} className="rounded" />
-          top10<span className="text-amber-500">today</span>
+          tenfor<span className="text-amber-500">today</span>
         </div>
         <p className="max-w-lg text-xs leading-relaxed text-slate-400">
-          Ten deals a day. Zero clutter. The board resets nightly at 12:00 AM Pacific (
-          {RESET_TIMEZONE === 'America/Los_Angeles' ? 'PST/PDT' : RESET_TIMEZONE}). Posts may
+          Ten deals a day. Zero clutter. Ten for today — the community's daily Top 10, reset
+          nightly at 12:00 AM Pacific ({RESET_TIMEZONE === 'America/Los_Angeles' ? 'PST/PDT' : RESET_TIMEZONE}). Posts may
           contain affiliate links; posters may earn a commission. Daily deal snapshots courtesy of
           Slickdeals.
         </p>
@@ -121,7 +121,7 @@ function Shell() {
         </Routes>
       </main>
       <Footer />
-      <Sheet open={signInOpen} onClose={() => setSignInOpen(false)} title="Welcome to Top10Today">
+      <Sheet open={signInOpen} onClose={() => setSignInOpen(false)} title={`Welcome to ${SITE_NAME}`}>
         <div className="flex flex-col gap-4">
           <p className="text-sm text-slate-600 dark:text-slate-300">
             Vote anonymously — no account needed. Join free to <strong>post deals</strong> with

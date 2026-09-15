@@ -1,8 +1,8 @@
-# Top10Today 🏆
+# TenForToday 🏆
 
 **Ten deals a day. Zero clutter.** The 10 best deals of the day, ranked by community votes.
 Vote anonymously (no account needed), post deals with your own affiliate links (free account
-required), and watch the board reset every midnight PST.
+required), and watch the board reset every midnight PST. Live at [tenfortoday.com](https://tenfortoday.com).
 
 A stripped-down, single-purpose take on Slickdeals: one leaderboard, ten categories, no noise.
 
@@ -45,7 +45,9 @@ firebase login                  # once per machine (interactive Google sign-in)
 firebase deploy                 # hosting + firestore rules + indexes
 ```
 
-The site goes live on Firebase Hosting (`https://top10today-f1418.web.app`). Security rules and
+The site goes live on Firebase Hosting (`https://top10today-f1418.web.app` — the Firebase
+project keeps its original id). To serve it from **tenfortoday.com**: register the domain, then
+Firebase console → Hosting → **Add custom domain** and follow the DNS steps. Security rules and
 composite indexes deploy together — first index build takes a few minutes.
 
 ## How it works

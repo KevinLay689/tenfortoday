@@ -205,7 +205,7 @@ export function SubmitDealPage() {
         </p>
       </form>
 
-      <Sheet open={sheetOpen} onClose={() => setSheetOpen(false)} title="Welcome to Top10Today">
+      <Sheet open={sheetOpen} onClose={() => setSheetOpen(false)} title="Welcome to TenForToday">
         <AuthForms onDone={() => setSheetOpen(false)} />
       </Sheet>
     </div>

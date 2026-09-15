@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Top10Today — daily deal import job.
+ * TenForToday — daily deal import job.
  *
  * Pulls the current crop of community-vetted deals from Slickdeals' public web
  * JSON API, keeps the strongest by community votes, and posts them to Firestore
