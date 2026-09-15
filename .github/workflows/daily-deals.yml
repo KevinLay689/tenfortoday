@@ -1,0 +1,32 @@
+name: Daily deals import
+
+# Populates today's board with the strongest current Slickdeals deals,
+# posted by the "administrator" account. Runs just after the midnight-PST
+# board reset (00:05 PST / 01:05 PDT).
+
+on:
+  schedule:
+    - cron: '5 8 * * *'
+  workflow_dispatch: {}
+
+concurrency:
+  group: daily-deals
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Import today's top deals from Slickdeals
+        env:
+          FB_ADMIN_EMAIL: ${{ secrets.FB_ADMIN_EMAIL }}
+          FB_ADMIN_PASSWORD: ${{ secrets.FB_ADMIN_PASSWORD }}
+          MAX_POSTS: '15'
+        run: node scripts/import-deals.mjs

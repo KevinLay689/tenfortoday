@@ -1,0 +1,74 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Voting may be anonymous; posting/deleting deals requires a registered
+    // (non-anonymous) account.
+    function signedIn() {
+      return request.auth != null;
+    }
+    function registered() {
+      return signedIn() && request.auth.token.firebase.sign_in_provider != 'anonymous';
+    }
+    function validDayKey(k) {
+      return k is string && k.matches('^\\d{4}-\\d{2}-\\d{2}$');
+    }
+
+    // Deal posts: public read, registered users create their own, votes-only updates.
+    match /posts/{postId} {
+      allow read: if true;
+
+      allow create: if registered()
+        && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 4
+        && request.resource.data.title.size() <= 140
+        && request.resource.data.url is string
+        && request.resource.data.url.matches('^https?://.*')
+        && request.resource.data.url.size() <= 2000
+        && request.resource.data.category in ['tech', 'home', 'gaming', 'fashion', 'beauty', 'sports', 'toys', 'auto', 'grocery', 'other']
+        && request.resource.data.price is string && request.resource.data.price.size() <= 40
+        && request.resource.data.merchant is string && request.resource.data.merchant.size() <= 60
+        && request.resource.data.description is string && request.resource.data.description.size() <= 500
+        && request.resource.data.imageUrl is string && request.resource.data.imageUrl.size() <= 2000
+        && validDayKey(request.resource.data.dayKey)
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.authorName is string && request.resource.data.authorName.size() <= 60
+        && request.resource.data.source in ['user', 'import']
+        && request.resource.data.upvotes == 0
+        && request.resource.data.downvotes == 0
+        && request.resource.data.score == 0
+        && request.resource.data.voteCount == 0;
+
+      // Vote transactions may only move the counters by one, and must stay consistent.
+      allow update: if signedIn()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['upvotes', 'downvotes', 'score', 'voteCount'])
+        && request.resource.data.upvotes is int
+        && request.resource.data.downvotes is int
+        && request.resource.data.score == request.resource.data.upvotes - request.resource.data.downvotes
+        && request.resource.data.voteCount == request.resource.data.upvotes + request.resource.data.downvotes
+        && (request.resource.data.upvotes - resource.data.upvotes) >= -1
+        && (request.resource.data.upvotes - resource.data.upvotes) <= 1
+        && (request.resource.data.downvotes - resource.data.downvotes) >= -1
+        && (request.resource.data.downvotes - resource.data.downvotes) <= 1;
+
+      allow delete: if registered() && resource.data.authorUid == request.auth.uid;
+    }
+
+    // One vote per voter per deal, enforced by the doc id "{postId}__{uid}".
+    match /votes/{voteId} {
+      allow read: if true;
+
+      allow create: if signedIn()
+        && voteId.split('__')[1] == request.auth.uid
+        && request.resource.data.postId == voteId.split('__')[0]
+        && request.resource.data.voterId == request.auth.uid
+        && request.resource.data.value in [-1, 1];
+
+      allow update, delete: if signedIn()
+        && voteId.split('__')[1] == request.auth.uid
+        && resource.data.voterId == request.auth.uid
+        && (request.method == 'delete' || request.resource.data.value in [-1, 1]);
+    }
+  }
+}
