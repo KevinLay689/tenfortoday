@@ -158,7 +158,7 @@ async function fetchJsonDeals(url, label) {
   if (!res.ok) throw new Error(`${label} returned ${res.status}`)
   const json = await res.json()
   const deals = (json.deals || []).map(mapDeal).filter(Boolean)
-  log(`Fetched ${deals.length} live deals from ${label}`)
+  log(`Fetched ${deals.length} live deals from ${label} (${deals.filter((d) => d.imageUrl).length} with images)`)
   return deals
 }
 
@@ -198,7 +198,6 @@ function toRestFields(post, adminUid, dayKey, nowIso) {
       imageUrl: s(post.imageUrl || ''),
       merchant: s(post.merchant),
       description: s(post.description || ''),
-      imageUrl: s(''),
       dayKey: s(dayKey),
       createdAt: { timestampValue: nowIso },
       authorUid: s(adminUid),
