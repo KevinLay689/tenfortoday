@@ -23,7 +23,8 @@ export function friendlyAuthError(err: unknown): string {
       return 'Please sign in again to do that.'
     default: {
       const msg = (err as Error)?.message ?? String(err)
-      if (msg.includes('permission-denied')) return "You don't have permission to do that."
+      if (msg.includes('permission-denied') || /insufficient permissions/i.test(msg))
+        return 'The deals board is unavailable right now — please refresh or check back soon.'
       return msg.length < 140 ? msg.replace('Firebase: ', '') : 'Something went wrong — try again.'
     }
   }
