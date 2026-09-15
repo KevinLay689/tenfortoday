@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CATEGORY_LABELS } from '../lib/constants'
+import { CATEGORY_EMOJI, CATEGORY_LABELS } from '../lib/constants'
 import { MIN_VOTES } from '../lib/models'
 import type { Post, VoteValue } from '../lib/models'
 import { deletePost } from '../lib/queries'
@@ -239,6 +239,31 @@ export function DealCard({
           )}
         </div>
       </div>
+
+      {/* Deal thumbnail (or category placeholder) — clicking opens the deal. */}
+      <a
+        href={post.url}
+        target="_blank"
+        rel="noopener nofollow"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="flex shrink-0 items-center self-center p-3 pl-0"
+      >
+        {post.imageUrl ? (
+          <img
+            src={post.imageUrl}
+            alt=""
+            loading="lazy"
+            width={88}
+            height={88}
+            className="h-[68px] w-[68px] rounded-xl border border-slate-200/70 bg-white object-cover sm:h-[88px] sm:w-[88px] dark:border-slate-700/60 dark:bg-slate-800"
+          />
+        ) : (
+          <span className="flex h-[68px] w-[68px] items-center justify-center rounded-xl border border-slate-200/70 bg-slate-50 text-2xl sm:h-[88px] sm:w-[88px] dark:border-slate-700/60 dark:bg-slate-800/60">
+            {CATEGORY_EMOJI[post.category]}
+          </span>
+        )}
+      </a>
 
       {mine && user && (
         <div className="flex items-center pr-3">

@@ -27,6 +27,7 @@ export function SubmitDealPage() {
   const [url, setUrl] = useState('')
   const [category, setCategory] = useState<Category>('tech')
   const [price, setPrice] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
   const [merchant, setMerchant] = useState('')
   const [description, setDescription] = useState('')
   const [busy, setBusy] = useState(false)
@@ -62,6 +63,7 @@ export function SubmitDealPage() {
         url: parsed.toString(),
         category,
         price,
+        imageUrl,
         merchant: effectiveMerchant,
         description,
       })
@@ -129,6 +131,17 @@ export function SubmitDealPage() {
             placeholder='e.g. "Anker 737 Power Bank 24000mAh — 42% off at Amazon"'
             maxLength={140}
             required
+          />
+        </label>
+
+        <label className="flex flex-col gap-1 text-xs font-semibold text-slate-600 dark:text-slate-300">
+          Image URL (optional — shown on the card)
+          <input
+            className={input}
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            placeholder="https://example.com/product-photo.jpg"
+            type="url"
           />
         </label>
 

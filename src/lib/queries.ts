@@ -25,6 +25,7 @@ function toPost(id: string, data: Record<string, unknown>): Post {
     listPrice: (data['listPrice'] as string) ?? '',
     merchant: (data['merchant'] as string) ?? '',
     description: (data['description'] as string) ?? '',
+    imageUrl: (data['imageUrl'] as string) ?? '',
     category: (data['category'] as Category) ?? 'other',
     dayKey: (data['dayKey'] as string) ?? '',
     createdAt: (data['createdAt'] as Post['createdAt']) ?? null,
@@ -110,6 +111,7 @@ export interface NewPost {
   price?: string
   merchant?: string
   description?: string
+  imageUrl?: string
 }
 
 export async function createPost(user: User, data: NewPost): Promise<string> {
@@ -122,7 +124,7 @@ export async function createPost(user: User, data: NewPost): Promise<string> {
     listPrice: '',
     merchant: (data.merchant ?? '').trim().slice(0, 60),
     description: (data.description ?? '').trim().slice(0, 500),
-    imageUrl: '',
+    imageUrl: (data.imageUrl ?? '').trim().slice(0, 2000),
     dayKey: todayKeyPST(),
     createdAt: serverTimestamp(),
     authorUid: user.uid,

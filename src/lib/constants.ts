@@ -26,6 +26,11 @@ export const CATEGORY_LABELS: Record<Category, string> = Object.fromEntries(
 
 export const CATEGORY_IDS = CATEGORIES.map((c) => c.id)
 
+/** Emoji used as the visual stand-in when a deal has no image. */
+export const CATEGORY_EMOJI: Record<Category, string> = Object.fromEntries(
+  CATEGORIES.map((c) => [c.id, c.emoji]),
+) as Record<Category, string>
+
 export const SITE_NAME = 'TenForToday'
 export const SITE_DOMAIN = 'tenfortoday.com'
 /** Where the daily reset clock lives. */

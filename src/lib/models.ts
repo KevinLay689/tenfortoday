@@ -23,6 +23,7 @@ export interface Post {
   listPrice: string
   merchant: string
   description: string
+  imageUrl: string
   category: Category
   /** YYYY-MM-DD in America/Los_Angeles — the deal's contest day. */
   dayKey: string
