@@ -45,6 +45,16 @@ firebase login                  # once per machine (interactive Google sign-in)
 firebase deploy                 # hosting + firestore rules + indexes
 ```
 
+**Deploying with a service account instead:** if you have a service-account key
+(`serviceAccountKey.json`, gitignored), you can skip `firebase login` for hosting deploys:
+
+```bash
+npm run build && node scripts/deploy-hosting.mjs   # builds dist/ and publishes via REST
+```
+
+Note: Firestore **rules** and **indexes** still require `firebase deploy` (or console access) —
+the hosting-only REST path can't publish them.
+
 The site goes live on Firebase Hosting (`https://top10today-f1418.web.app` — the Firebase
 project keeps its original id). Security rules and composite indexes deploy together — first
 index build takes a few minutes.
