@@ -32,7 +32,7 @@ function Header({ onSignIn }: { onSignIn: () => void }) {
           </span>
         </NavLink>
 
-        <nav className="no-scrollbar mx-1 flex grow items-center gap-0.5 overflow-x-auto" aria-label="Tabs">
+        <nav className="no-scrollbar -my-1 mx-1 flex grow items-center gap-0.5 overflow-x-auto px-1 py-1" aria-label="Tabs">
           <NavLink to="/" end className={tabClass}>
             Top 10
           </NavLink>

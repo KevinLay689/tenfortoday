@@ -41,6 +41,12 @@ body {
   scrollbar-width: none;
 }
 
+/* Keyboard focus ring — visible but never clipped by scroll containers. */
+:focus-visible {
+  outline: 2px solid #f5a524;
+  outline-offset: 2px;
+}
+
 @keyframes rise {
   from {
     transform: translateY(14px);

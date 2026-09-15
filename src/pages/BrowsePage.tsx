@@ -60,7 +60,7 @@ export function BrowsePage() {
       </div>
 
       {/* Categories */}
-      <nav className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1" aria-label="Categories">
+      <nav className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 py-1.5" aria-label="Categories">
         <CategoryChip to="/browse" active={category === 'all'} label="🌍 All" />
         {CATEGORIES.map((c) => (
           <CategoryChip
