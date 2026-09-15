@@ -46,9 +46,26 @@ firebase deploy                 # hosting + firestore rules + indexes
 ```
 
 The site goes live on Firebase Hosting (`https://top10today-f1418.web.app` — the Firebase
-project keeps its original id). To serve it from **tenfortoday.com**: register the domain, then
-Firebase console → Hosting → **Add custom domain** and follow the DNS steps. Security rules and
-composite indexes deploy together — first index build takes a few minutes.
+project keeps its original id). Security rules and composite indexes deploy together — first
+index build takes a few minutes.
+
+## Attach tenfortoday.com (Cloudflare DNS)
+
+1. Firebase console → Hosting → **Add custom domain** → enter `tenfortoday.com` → confirm
+   adding `www` as a redirect to the apex.
+2. When Firebase shows the DNS records, add them in the Cloudflare dashboard (tenfortoday.com
+   → DNS → Records), **DNS-only / gray cloud** — Firebase's managed certificate can't be
+   issued through the Cloudflare proxy. The records Firebase requests are normally:
+   | Type | Name | Value |
+   |------|------|-------|
+   | A | `@` | `199.36.158.100` |
+   | CNAME | `www` | `ghs.googlehosted.com` |
+   | TXT | `_acme-challenge` (only if shown) | the unique value the console displays |
+3. Back in Firebase, wait for "Pending" → "Connected" (usually minutes once DNS propagates);
+   HTTPS provisions automatically.
+
+If Cloudflare auto-imported placeholder records for `@`/`www`, delete those first so only the
+Firebase records remain.
 
 ## How it works
 
