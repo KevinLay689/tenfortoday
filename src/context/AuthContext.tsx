@@ -29,6 +29,8 @@ interface AuthContextValue {
   resetPassword(email: string): Promise<void>
   /** Cast, switch, or toggle a vote. Works anonymously. */
   vote(postId: string, value: VoteValue): Promise<VoteValue | 0>
+  /** Authoritative post-vote counters from the server transaction, keyed by postId. */
+  liveCounters: Map<string, { score: number; upvotes: number; downvotes: number; voteCount: number }>
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -37,6 +39,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [myVotes, setMyVotes] = useState<Map<string, VoteValue>>(new Map())
+  const [liveCounters, setLiveCounters] = useState<
+    Map<string, { score: number; upvotes: number; downvotes: number; voteCount: number }>
+  >(new Map())
 
   useEffect(
     () =>
@@ -44,6 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(u)
         setLoading(false)
         setMyVotes(new Map())
+        setLiveCounters(new Map())
         if (u) {
           try {
             const snap = await getDocs(query(collection(db, 'votes'), where('voterId', '==', u.uid)))
@@ -90,6 +96,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       else next.set(postId, result.value)
       return next
     })
+    // The transaction returns the post's true counters — store them so cards
+    // display exact numbers instead of layering a guess onto stale list data.
+    setLiveCounters((prev) => {
+      const next = new Map(prev)
+      next.set(postId, {
+        score: result.score,
+        upvotes: result.upvotes,
+        downvotes: result.downvotes,
+        voteCount: result.voteCount,
+      })
+      return next
+    })
     logAppEvent('vote', { value: result.value })
     return result.value
   }
@@ -99,6 +117,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     loading,
     isAnonymous: user?.isAnonymous ?? false,
     myVotes,
+    liveCounters,
     signUp,
     signIn,
     signOut,

@@ -16,7 +16,7 @@ export function BrowsePage() {
     ? routeCategory
     : 'all') as Category | 'all'
   const [sort, setSort] = useState<BrowseSort>(
-    (searchParams.get('sort') === 'top' ? 'top' : 'new') as BrowseSort,
+    (searchParams.get('sort') === 'new' ? 'new' : 'top') as BrowseSort,
   )
   const [posts, setPosts] = useState<Post[] | null>(null)
   const [error, setError] = useState<string | null>(null)

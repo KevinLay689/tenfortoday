@@ -112,13 +112,17 @@ export function DealCard({
   mine?: boolean
   onDeleted?: (id: string) => void
 }) {
-  const { myVotes, vote, user } = useAuth()
+  const { myVotes, vote, user, liveCounters } = useAuth()
   const toast = useToast()
   const [pending, setPending] = useState<VoteValue | null>(null)
   const [deleting, setDeleting] = useState(false)
 
   const my = myVotes.get(post.id) ?? 0
-  const displayScore = post.score + (my === 1 ? 1 : 0) - (my === -1 ? 1 : 0)
+  // Prefer the exact counters returned by this session's vote transaction; fall
+  // back to the list snapshot. Never layer a guess on top of server data.
+  const live = liveCounters.get(post.id)
+  const displayScore = live ? live.score : post.score
+  const voteCount = live ? live.voteCount : post.voteCount
 
   async function onVote(value: VoteValue) {
     if (pending) return
@@ -147,7 +151,7 @@ export function DealCard({
   }
 
   const isToday = post.dayKey === todayKeyPST()
-  const votesLeft = Math.max(0, MIN_VOTES - post.voteCount)
+  const votesLeft = Math.max(0, MIN_VOTES - voteCount)
 
   return (
     <article
@@ -217,7 +221,7 @@ export function DealCard({
           >
             {CATEGORY_LABELS[post.category]}
           </Link>
-          <span aria-label={`${post.voteCount} votes`}>{post.voteCount} votes</span>
+          <span aria-label={`${voteCount} votes`}>{voteCount} votes</span>
           <span aria-hidden>·</span>
           <span>by {post.authorName}</span>
           <span aria-hidden>·</span>
@@ -229,7 +233,7 @@ export function DealCard({
           )}
           {mine && isToday && (
             <span className="font-medium text-amber-600 dark:text-amber-400">
-              {post.voteCount >= MIN_VOTES
+              {voteCount >= MIN_VOTES
                 ? 'On today’s Top 10 board'
                 : `${votesLeft} more vote${votesLeft === 1 ? '' : 's'} to make the Top 10`}
             </span>
