@@ -19,6 +19,8 @@ export interface Post {
   title: string
   url: string
   price: string
+  /** Original/list price — shown struck-through next to the deal price. */
+  listPrice: string
   merchant: string
   description: string
   category: Category

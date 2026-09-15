@@ -15,7 +15,13 @@
 
 const PROJECT_ID = process.env.FIREBASE_PROJECT_ID || 'top10today-f1418'
 const API_KEY = process.env.FIREBASE_API_KEY || 'AIzaSyCag-H8M0jAZa-NjSn4g9sI60Qc9HZPMAM'
-const SD_API_URL =
+// Primary source: Slickdeals' Fire Deals ("Most Active Deals") hydration feed —
+// the community's hottest deals, with real vote counts. Falls back to the
+// general deals API when the fire feed is empty or unreachable.
+const SD_FIRE_URL =
+  process.env.SD_FIRE_URL ||
+  'https://slickdeals.net/web-api/dxp/content-block/69fa65ef63a48f96f04d4831/6a8f77d65436d4dbba11371d/?src=firedeals-cms&attrsrc=Feed%3AID%3A69fa65ef63a48f96f04d4831%7CFeed%3ABlock%3A6a8f77d65436d4dbba11371d'
+const SD_FALLBACK_URL =
   process.env.SD_API_URL || 'https://slickdeals.net/web-api/search/deals/?query=&hideExpired=true'
 const MAX_POSTS = Number(process.env.MAX_POSTS || 15)
 const DRY_RUN = process.env.DRY_RUN === '1'
@@ -35,7 +41,7 @@ const AUTHOR_NAME = 'administrator'
 
 // Ordered keyword rules — first match wins. Keep broad but unambiguous.
 const CATEGORY_RULES = [
-  ['gaming', ['ps5', 'ps4', 'xbox', 'nintendo', 'switch game', 'switch oled', 'playstation', 'steam deck', 'gaming', 'geforce', 'rtx', 'console', 'controller', 'arcade']],
+  ['gaming', ['ps5', 'ps4', 'xbox', 'nintendo', 'switch game', 'switch oled', '(switch', 'switch)', 'playstation', 'steam deck', 'gaming', 'geforce', 'rtx', 'console', 'controller', 'arcade', 'metroid', 'mario']],
   ['tech', ['iphone', 'ipad', 'macbook', 'imac', 'mac mini', 'airpods', 'apple watch', 'applewatch', 'magsafe', 'laptop', 'notebook', 'chromebook', 'tablet', 'galaxy', 'pixel', 'android', 'phone', 'smartphone', 'mini pc', 'ryzen', 'monitor', 'tv"', ' oled', ' qled', 'projector', 'headphones', 'earbuds', 'earphones', 'soundbar', 'speaker', 'ssd', 'hard drive', 'microsd', 'sd card', 'usb', 'power bank', 'charger', 'cable', 'keyboard', 'mouse', 'webcam', 'router', 'wifi', 'camera', 'gopro', 'drone', 'printer', 'smartwatch', 'fitbit', 'garmin', 'cpu', 'processor', 'ram ']],
   ['toys', ['lego', 'toy', 'barbie', 'hot wheels', 'nerf', 'hasbro', 'mattel', 'playmobil', 'puzzle', 'board game', 'card game', 'pokemon', 'plush', 'doll', 'stroller', 'car seat', 'diaper', 'baby', 'crib', 'high chair', 'kids', 'halloween costume', 'inflatable']],
   ['auto', ['tire', 'dash cam', 'jump starter', 'jumper cable', 'car wax', 'floor mat', 'dewalt', 'milwaukee', 'craftsman', 'ryobi', 'socket set', 'wrench', 'tool set', 'power tool', 'power station', 'drill', 'motorcycle', 'truck', 'jeep', 'rv ', 'car ', 'vehicle', 'oil filter', 'engine oil', 'wiper', 'generator', 'snow blower', 'snow thrower', 'leaf blower', 'pressure washer', 'toro', 'egan', 'ego ', 'makita']],
@@ -127,7 +133,7 @@ function cleanTitle(rawTitle, finalPrice) {
 
 function mapDeal(d) {
   const title = cleanTitle(String(d.dealTitle || ''), d.finalPriceText)
-  const price = String(d.finalPriceText || d.listPriceText || '').slice(0, 40)
+  const price = String(d.finalPriceText || '').slice(0, 40)
   const url = d.dealThreadUrl
     ? `https://slickdeals.net${d.dealThreadUrl}`
     : String(d.dealShareUrl || '')
@@ -136,6 +142,7 @@ function mapDeal(d) {
     title,
     url,
     price: price === '$0' ? 'Free' : price,
+    listPrice: String(d.listPriceText || '').slice(0, 40),
     merchant: String(d.storeName || 'Slickdeals').slice(0, 60),
     category: guessCategory(`${title} ${d.storeName || ''}`),
     description: String(d.dealAdditionalInfo || '').slice(0, 500),
@@ -145,13 +152,34 @@ function mapDeal(d) {
   }
 }
 
-async function fetchDeals() {
-  const res = await fetch(SD_API_URL, { headers: { 'User-Agent': UA, Accept: 'application/json' } })
-  if (!res.ok) throw new Error(`Slickdeals API returned ${res.status}`)
+async function fetchJsonDeals(url, label) {
+  const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } })
+  if (!res.ok) throw new Error(`${label} returned ${res.status}`)
   const json = await res.json()
   const deals = (json.deals || []).map(mapDeal).filter(Boolean)
-  log(`Fetched ${deals.length} live deals from Slickdeals`)
-  // Community-vetted first: most votes, then freshest.
+  log(`Fetched ${deals.length} live deals from ${label}`)
+  return deals
+}
+
+async function fetchDeals() {
+  let deals = []
+  try {
+    deals = await fetchJsonDeals(SD_FIRE_URL, 'Slickdeals Fire Deals')
+  } catch (err) {
+    log(`Fire Deals fetch failed (${err.message.slice(0, 120)}) — falling back to the general feed.`)
+  }
+  if (deals.length < 5) {
+    try {
+      deals = deals.concat(await fetchJsonDeals(SD_FALLBACK_URL, 'the general deals feed'))
+    } catch (err) {
+      if (deals.length === 0) throw err
+      log(`General feed also failed (${err.message.slice(0, 120)}); continuing with fire deals only.`)
+    }
+  }
+  // Dedupe by thread (fire + general feeds can overlap), then community-vetted
+  // first: most votes, then freshest.
+  const seen = new Set()
+  deals = deals.filter((d) => (seen.has(d.threadId) ? false : (seen.add(d.threadId), true)))
   deals.sort((a, b) => b.votes - a.votes || (b.postedIso || '').localeCompare(a.postedIso || ''))
   return deals
 }
@@ -165,6 +193,7 @@ function toRestFields(post, adminUid, dayKey, nowIso) {
       url: s(post.url),
       category: s(post.category),
       price: s(post.price),
+      listPrice: s(post.listPrice || ''),
       merchant: s(post.merchant),
       description: s(post.description || ''),
       imageUrl: s(''),

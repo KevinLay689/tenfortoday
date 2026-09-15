@@ -179,6 +179,20 @@ export function DealCard({
       <VoteColumn score={displayScore} myVote={my} pending={pending} onVote={(v) => void onVote(v)} />
 
       <div className="flex min-w-0 grow flex-col justify-center gap-1 py-3.5 pr-4">
+        {(post.price || post.listPrice) && (
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+            {post.price && (
+              <span className="text-xl leading-none font-black tracking-tight text-emerald-600 dark:text-emerald-400 sm:text-2xl">
+                {post.price}
+              </span>
+            )}
+            {post.listPrice && (
+              <span className="text-xs font-semibold text-slate-400 line-through">
+                {post.listPrice}
+              </span>
+            )}
+          </div>
+        )}
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
           <a
             href={post.url}
@@ -188,9 +202,9 @@ export function DealCard({
           >
             {post.title}
           </a>
-          {post.price && (
-            <span className="rounded-md bg-emerald-100 px-1.5 py-0.5 text-xs font-bold text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400">
-              {post.price}
+          {!post.price && post.listPrice && (
+            <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-xs font-bold text-slate-500 line-through dark:bg-slate-800 dark:text-slate-400">
+              {post.listPrice}
             </span>
           )}
         </div>
