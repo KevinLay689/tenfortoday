@@ -42,12 +42,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             key={t.id}
             role="status"
             className={
-              'animate-rise pointer-events-auto max-w-sm rounded-xl px-4 py-2.5 text-sm font-medium text-white shadow-lg ' +
+              'animate-rise pointer-events-auto max-w-sm rounded-[4px] px-4 py-2.5 text-sm font-medium text-white shadow-lg ' +
               (t.kind === 'error'
                 ? 'bg-rose-600'
                 : t.kind === 'success'
                   ? 'bg-emerald-600'
-                  : 'bg-slate-800')
+                  : 'bg-[#0b1f3f]')
             }
           >
             {t.message}

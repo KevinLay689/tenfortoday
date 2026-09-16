@@ -41,7 +41,7 @@ export function SettingsPage() {
       </div>
 
       {user && !isAnonymous ? (
-        <section className="flex flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
+        <section className="flex flex-col gap-3 rounded-[4px] border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
           <h2 className="text-sm font-black tracking-wide text-slate-500 uppercase dark:text-slate-400">
             Account
           </h2>
@@ -55,13 +55,13 @@ export function SettingsPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 maxLength={30}
-                className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+                className="w-full rounded-[4px] border border-slate-300 bg-white px-3.5 py-2.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
               />
               <button
                 type="button"
                 onClick={() => void saveName()}
                 disabled={busy}
-                className="rounded-xl bg-blue-600 px-4 text-sm font-bold text-white transition hover:bg-blue-700 disabled:opacity-50"
+                className="rounded-[4px] bg-[#0b4dc0] px-4 text-sm font-bold text-white transition hover:bg-[#0a43a8] disabled:opacity-50"
               >
                 Save
               </button>
@@ -70,13 +70,13 @@ export function SettingsPage() {
           <button
             type="button"
             onClick={() => void signOut()}
-            className="self-start rounded-xl border border-slate-300 px-4 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+            className="self-start rounded-[4px] border border-slate-300 px-4 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
           >
             Sign out
           </button>
         </section>
       ) : user && isAnonymous ? (
-        <section className="flex flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
+        <section className="flex flex-col gap-3 rounded-[4px] border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
           <h2 className="text-sm font-black tracking-wide text-slate-500 uppercase dark:text-slate-400">
             You're voting anonymously
           </h2>
@@ -87,7 +87,7 @@ export function SettingsPage() {
           <AuthForms />
         </section>
       ) : (
-        <section className="flex flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
+        <section className="flex flex-col gap-3 rounded-[4px] border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
           <h2 className="text-sm font-black tracking-wide text-slate-500 uppercase dark:text-slate-400">
             Sign in / Join
           </h2>
@@ -98,7 +98,7 @@ export function SettingsPage() {
         </section>
       )}
 
-      <section className="flex flex-col gap-2 rounded-3xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
+      <section className="flex flex-col gap-2 rounded-[4px] border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
         <h2 className="text-sm font-black tracking-wide text-slate-500 uppercase dark:text-slate-400">
           How the board works
         </h2>
@@ -114,7 +114,7 @@ export function SettingsPage() {
         </ul>
       </section>
 
-      <section className="flex flex-col gap-2 rounded-3xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
+      <section className="flex flex-col gap-2 rounded-[4px] border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
         <h2 className="text-sm font-black tracking-wide text-slate-500 uppercase dark:text-slate-400">
           About & disclosure
         </h2>

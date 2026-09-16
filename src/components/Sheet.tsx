@@ -40,7 +40,7 @@ export function Sheet({
     >
       <div
         ref={ref}
-        className="animate-rise max-h-[85dvh] w-full max-w-md overflow-y-auto rounded-t-3xl bg-white p-6 shadow-2xl sm:rounded-3xl dark:bg-slate-900"
+        className="animate-rise max-h-[85dvh] w-full max-w-md overflow-y-auto rounded-t-[6px] bg-white p-6 shadow-2xl sm:rounded-[6px] dark:bg-slate-900"
       >
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">{title}</h2>

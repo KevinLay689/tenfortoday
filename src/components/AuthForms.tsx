@@ -15,7 +15,7 @@ export function AuthForms({ onDone }: { onDone?: () => void }) {
   const [busy, setBusy] = useState(false)
 
   const input =
-    'w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100'
+    'w-full rounded-[4px] border border-slate-300 bg-white px-3.5 py-2.5 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100'
 
   async function submit(e: React.FormEvent) {
     e.preventDefault()
@@ -56,7 +56,7 @@ export function AuthForms({ onDone }: { onDone?: () => void }) {
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-3">
-      <div className="grid grid-cols-2 rounded-xl bg-slate-100 p-1 text-sm font-semibold dark:bg-slate-800">
+      <div className="grid grid-cols-2 rounded-[4px] bg-slate-100 p-1 text-sm font-semibold dark:bg-slate-800">
         {(['signin', 'join'] as const).map((m) => (
           <button
             key={m}
@@ -116,7 +116,7 @@ export function AuthForms({ onDone }: { onDone?: () => void }) {
       <button
         type="submit"
         disabled={busy}
-        className="mt-1 rounded-xl bg-blue-600 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 disabled:opacity-50"
+        className="mt-1 rounded-[4px] bg-[#0b4dc0] py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#0a43a8] disabled:opacity-50"
       >
         {busy ? 'One moment…' : mode === 'signin' ? 'Sign in' : 'Create account'}
       </button>

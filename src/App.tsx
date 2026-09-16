@@ -9,13 +9,13 @@ import { BrowsePage } from './pages/BrowsePage'
 import { SubmitDealPage } from './pages/SubmitDealPage'
 import { MyPostsPage } from './pages/MyPostsPage'
 import { SettingsPage } from './pages/SettingsPage'
-import { RESET_TIMEZONE, SITE_NAME } from './lib/constants'
+import { SITE_NAME } from './lib/constants'
 
 const tabClass = ({ isActive }: { isActive: boolean }) =>
-  'relative rounded-lg px-3 py-2 text-sm font-bold whitespace-nowrap transition ' +
+  'whitespace-nowrap border-b-[3px] px-3 py-2.5 text-sm font-bold transition ' +
   (isActive
-    ? 'text-blue-700 dark:text-amber-400'
-    : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200')
+    ? 'border-[#c62828] text-[#c62828]'
+    : 'border-transparent text-slate-600 hover:border-slate-300 hover:text-[#0b4dc0] dark:text-slate-300 dark:hover:text-blue-400')
 
 function Header({ onSignIn }: { onSignIn: () => void }) {
   const { user, isAnonymous } = useAuth()
@@ -23,16 +23,16 @@ function Header({ onSignIn }: { onSignIn: () => void }) {
   const member = user && !isAnonymous
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/85 backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/85">
-      <div className="mx-auto flex max-w-5xl items-center gap-2 px-4 py-2.5">
-        <NavLink to="/" className="flex shrink-0 items-center gap-2" aria-label={SITE_NAME}>
-          <img src="/logo.svg" alt="" width={30} height={30} className="rounded-lg" />
-          <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white">
-            tenfor<span className="text-amber-500">today</span>
+    <header className="sticky top-0 z-30 border-b-2 border-[#0b1f3f] bg-white dark:border-slate-700 dark:bg-slate-950">
+      <div className="mx-auto flex max-w-5xl items-center gap-2 px-4">
+        <NavLink to="/" className="flex shrink-0 items-center gap-1.5 py-2" aria-label={SITE_NAME}>
+          <img src="/logo.svg" alt="" width={28} height={28} className="rounded-[3px]" />
+          <span className="text-lg font-bold tracking-tight text-[#0b1f3f] dark:text-white">
+            TenFor<span className="text-[#c62828]">Today</span>
           </span>
         </NavLink>
 
-        <nav className="no-scrollbar -my-1 mx-1 flex grow items-center gap-0.5 overflow-x-auto px-1 py-1" aria-label="Tabs">
+        <nav className="no-scrollbar -mb-0.5 flex grow items-center gap-0.5 overflow-x-auto" aria-label="Tabs">
           <NavLink to="/" end className={tabClass}>
             Top 10
           </NavLink>
@@ -53,19 +53,14 @@ function Header({ onSignIn }: { onSignIn: () => void }) {
           <button
             type="button"
             onClick={() => (member ? navigate('/submit') : onSignIn())}
-            className={
-              'rounded-xl px-3 py-2 text-xs font-bold shadow-sm transition sm:text-sm ' +
-              (member
-                ? 'bg-blue-600 text-white hover:bg-blue-700'
-                : 'bg-amber-400 text-slate-900 hover:bg-amber-300')
-            }
+            className="rounded-[4px] bg-[#0b4dc0] px-3 py-2 text-xs font-bold text-white transition hover:bg-[#0a43a8] sm:text-sm"
           >
-            {member ? '+ Post a Deal' : '🔐 Post a Deal'}
+            + Post a Deal
           </button>
           {member ? (
             <NavLink
               to="/settings"
-              className="hidden max-w-32 truncate rounded-xl bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700 transition hover:bg-slate-200 sm:block dark:bg-slate-800 dark:text-slate-200"
+              className="hidden max-w-32 truncate py-2 text-xs font-bold text-[#0b4dc0] hover:underline sm:block dark:text-blue-400"
               title={user.email ?? undefined}
             >
               {user.displayName || user.email?.split('@')[0] || 'member'}
@@ -74,7 +69,7 @@ function Header({ onSignIn }: { onSignIn: () => void }) {
             <button
               type="button"
               onClick={onSignIn}
-              className="hidden rounded-xl px-3 py-2 text-xs font-bold text-blue-700 transition hover:bg-blue-50 sm:block dark:text-blue-400 dark:hover:bg-blue-500/10"
+              className="hidden py-2 text-xs font-bold text-[#0b4dc0] hover:underline sm:block dark:text-blue-400"
             >
               Sign in
             </button>
@@ -87,17 +82,15 @@ function Header({ onSignIn }: { onSignIn: () => void }) {
 
 function Footer() {
   return (
-    <footer className="mt-10 border-t border-slate-200 py-8 dark:border-slate-800">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-2 px-4 text-center">
-        <div className="flex items-center gap-1.5 text-sm font-black text-slate-400">
-          <img src="/logo.svg" alt="" width={18} height={18} className="rounded" />
-          tenfor<span className="text-amber-500">today</span>
+    <footer className="mt-10 border-t border-[#d9d9d9] bg-white py-6 dark:border-slate-700 dark:bg-slate-900">
+      <div className="mx-auto flex max-w-5xl flex-col items-center gap-1.5 px-4 text-center">
+        <div className="text-sm font-bold text-slate-500 dark:text-slate-400">
+          TenFor<span className="text-[#c62828]">Today</span>
         </div>
-        <p className="max-w-lg text-xs leading-relaxed text-slate-400">
-          Ten deals a day. Zero clutter. Ten for today — the community's daily Top 10, reset
-          nightly at 12:00 AM Pacific ({RESET_TIMEZONE === 'America/Los_Angeles' ? 'PST/PDT' : RESET_TIMEZONE}). Posts may
-          contain affiliate links; posters may earn a commission. Daily deal snapshots courtesy of
-          Slickdeals.
+        <p className="max-w-xl text-xs leading-relaxed text-slate-400">
+          Ten deals a day, ranked by your votes. The board resets nightly at 12:00 AM Pacific.
+          Posts may contain affiliate links; posters may earn a commission. Daily deal snapshots
+          courtesy of Slickdeals.
         </p>
       </div>
     </footer>

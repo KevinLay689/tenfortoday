@@ -35,7 +35,7 @@ export function SubmitDealPage() {
   const canPost = user && !isAnonymous
 
   const input =
-    'w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100'
+    'w-full rounded-[4px] border border-slate-300 bg-white px-3.5 py-2.5 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100'
 
   // Auto-fill merchant from the URL until the user edits it.
   const [merchantTouched, setMerchantTouched] = useState(false)
@@ -88,7 +88,7 @@ export function SubmitDealPage() {
       </div>
 
       {!canPost && (
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
+        <div className="rounded-[4px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
           Anyone can <strong>vote</strong> anonymously, but you need a free account to{' '}
           <strong>post</strong>.{' '}
           <button
@@ -105,7 +105,7 @@ export function SubmitDealPage() {
       <form
         onSubmit={submit}
         className={
-          'flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900 ' +
+          'flex flex-col gap-4 rounded-[4px] border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900 ' +
           (canPost ? '' : 'pointer-events-none opacity-50 select-none')
         }
         aria-disabled={!canPost}
@@ -182,10 +182,10 @@ export function SubmitDealPage() {
                 type="button"
                 onClick={() => setCategory(c.id)}
                 className={
-                  'rounded-full px-3 py-1.5 text-xs font-bold transition ' +
+                  'bg-[3px] px-3 py-1.5 text-xs font-bold transition ' +
                   (category === c.id
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700')
+                    ? 'bg-[#0b1f3f] text-white'
+                    : 'bg-white text-slate-600 border border-[#c9c9c9] hover:border-slate-400 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-600')
                 }
               >
                 {c.emoji} {c.label}
@@ -208,7 +208,7 @@ export function SubmitDealPage() {
         <button
           type="submit"
           disabled={busy}
-          className="rounded-xl bg-blue-600 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 disabled:opacity-50"
+          className="rounded-[4px] bg-[#0b4dc0] py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#0a43a8] disabled:opacity-50"
         >
           {busy ? 'Posting…' : 'Post deal 🚀'}
         </button>

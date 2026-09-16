@@ -60,25 +60,25 @@ export function BrowsePage() {
       </div>
 
       {/* Categories */}
-      <nav className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 py-1.5" aria-label="Categories">
-        <CategoryChip to="/browse" active={category === 'all'} label="🌍 All" />
+      <nav className="no-scrollbar -mx-4 flex gap-1.5 overflow-x-auto px-4 py-1.5" aria-label="Categories">
+        <CategoryChip to="/browse" active={category === 'all'} label="All Deals" />
         {CATEGORIES.map((c) => (
           <CategoryChip
             key={c.id}
             to={`/browse/${c.id}`}
             active={category === c.id}
-            label={`${c.emoji} ${c.label}`}
+            label={c.label}
           />
         ))}
       </nav>
 
       {/* Search + sort */}
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2 border-b border-[#d9d9d9] pb-3 dark:border-slate-700">
         <div className="relative min-w-52 grow">
           <svg
-            className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
-            width="15"
-            height="15"
+            className="absolute top-1/2 left-2.5 -translate-y-1/2 text-slate-400"
+            width="14"
+            height="14"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -93,14 +93,15 @@ export function BrowsePage() {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search deals…"
             aria-label="Search deals"
-            className="w-full rounded-xl border border-slate-300 bg-white py-2 pr-3 pl-9 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+            className="w-full rounded-[4px] border border-[#c9c9c9] bg-white py-1.5 pr-3 pl-8 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-[#0b4dc0] dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
           />
         </div>
-        <div className="flex rounded-xl bg-slate-100 p-1 text-xs font-bold dark:bg-slate-800">
+        <div className="flex items-center text-xs font-bold">
+          <span className="mr-1.5 text-slate-400">Sort:</span>
           {(
             [
-              ['new', 'Newest'],
               ['top', 'Top voted'],
+              ['new', 'Newest'],
             ] as const
           ).map(([id, label]) => (
             <button
@@ -108,10 +109,10 @@ export function BrowsePage() {
               type="button"
               onClick={() => setSort(id)}
               className={
-                'rounded-lg px-3.5 py-1.5 transition ' +
+                'px-2 py-1 transition ' +
                 (sort === id
-                  ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-950 dark:text-white'
-                  : 'text-slate-500 hover:text-slate-700 dark:text-slate-400')
+                  ? 'bg-[#0b1f3f] text-white'
+                  : 'text-[#0b4dc0] hover:underline dark:text-blue-400')
               }
             >
               {label}
@@ -169,10 +170,10 @@ function CategoryChip({ to, active, label }: { to: string; active: boolean; labe
     <Link
       to={to}
       className={
-        'shrink-0 rounded-full px-3.5 py-1.5 text-xs font-bold whitespace-nowrap transition ' +
+        'shrink-0 whitespace-nowrap rounded-[3px] border px-3 py-1.5 text-xs font-bold transition ' +
         (active
-          ? 'bg-blue-600 text-white shadow-sm'
-          : 'bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50 hover:ring-slate-300 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-700 dark:hover:bg-slate-800')
+          ? 'border-[#0b1f3f] bg-[#0b1f3f] text-white'
+          : 'border-[#c9c9c9] bg-white text-slate-600 hover:border-[#0b4dc0] hover:text-[#0b4dc0] dark:border-slate-600 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-blue-400 dark:hover:text-blue-400')
       }
     >
       {label}

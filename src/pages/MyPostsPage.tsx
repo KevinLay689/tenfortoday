@@ -50,14 +50,14 @@ export function MyPostsPage() {
         </div>
         <Link
           to="/submit"
-          className="rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-blue-700"
+          className="rounded-[4px] bg-[#0b4dc0] px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-[#0a43a8]"
         >
           + Post a deal
         </Link>
       </div>
 
       {error && (
-        <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300">
+        <div className="rounded-[4px] border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300">
           {error}
         </div>
       )}
