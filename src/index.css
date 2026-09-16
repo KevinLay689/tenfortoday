@@ -32,9 +32,12 @@ body {
   }
 }
 
-/* Classic deal-site link color used across cards, tabs and nav. */
-a {
-  color: #1155cc;
+/* Classic deal-site link color for plain links. Must live in the base layer —
+   unlayered rules would override Tailwind utilities like text-white. */
+@layer base {
+  a {
+    color: #1155cc;
+  }
 }
 
 .no-scrollbar::-webkit-scrollbar {
