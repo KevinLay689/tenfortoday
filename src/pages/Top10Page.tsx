@@ -25,9 +25,9 @@ export function Top10Page() {
 
   return (
     <div className="flex flex-col gap-4">
-      <section className="flex flex-wrap items-end justify-between gap-3 border-b-2 border-[#0b1f3f] pb-3">
+      <section className="flex flex-wrap items-end justify-between gap-3 border-b border-[#e5e7eb] dark:border-slate-700 pb-3">
         <div>
-          <h1 className="text-xl font-bold text-[#0b1f3f] dark:text-slate-100 sm:text-2xl">
+          <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 sm:text-2xl">
             Today's Top 10 Deals
           </h1>
           <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
@@ -38,7 +38,7 @@ export function Top10Page() {
         <button
           type="button"
           onClick={() => void load()}
-          className="rounded-[4px] border border-[#c9c9c9] bg-white px-3 py-1.5 text-xs font-bold text-[#0b4dc0] transition hover:border-[#0b4dc0] dark:border-slate-600 dark:bg-slate-900 dark:text-blue-400"
+          className="rounded-[4px] border border-[#d1d5db] bg-white px-3 py-1.5 text-xs font-bold text-[#0b4dc0] transition hover:border-[#0b4dc0] dark:border-slate-600 dark:bg-slate-900 dark:text-blue-400"
           title="Refresh rankings"
         >
           ⟳ Refresh

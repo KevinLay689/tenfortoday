@@ -18,7 +18,7 @@ select {
 
 body {
   margin: 0;
-  background-color: #efefef;
+  background-color: #ffffff;
   color: #1a1a1a;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -46,7 +46,7 @@ a {
 
 /* Keyboard focus ring — visible but never clipped by scroll containers. */
 :focus-visible {
-  outline: 2px solid #d32f2f;
+  outline: 2px solid #0b4dc0;
   outline-offset: 1px;
 }
 

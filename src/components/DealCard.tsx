@@ -24,7 +24,7 @@ function VoteColumn({
   const btn =
     'flex w-full items-center justify-center py-1.5 transition disabled:opacity-40 leading-none'
   return (
-    <div className="flex w-11 shrink-0 flex-col items-center justify-center gap-0.5 border-r border-[#d9d9d9] bg-[#f7f7f7] dark:border-slate-700 dark:bg-slate-800/60">
+    <div className="flex w-11 shrink-0 flex-col items-center justify-center gap-0.5 border-r border-[#e5e7eb] bg-[#f7f7f7] dark:border-slate-700 dark:bg-slate-800/60">
       <button
         type="button"
         onClick={() => onVote(1)}
@@ -60,7 +60,7 @@ function VoteColumn({
             : score > 0
               ? 'text-[#0b4dc0] dark:text-blue-400'
               : score < 0
-                ? 'text-[#c62828] dark:text-rose-400'
+                ? 'text-[#16a34a] dark:text-emerald-400'
                 : 'text-slate-500 dark:text-slate-400')
         }
         aria-label={`${score} points`}
@@ -77,7 +77,7 @@ function VoteColumn({
         className={
           btn +
           (myVote === -1
-            ? ' text-[#c62828] dark:text-rose-400'
+            ? ' text-[#16a34a] dark:text-emerald-400'
             : ' text-slate-400 hover:text-[#c62828] dark:hover:text-rose-400')
         }
       >
@@ -165,13 +165,13 @@ export function DealCard({
     <article
       className={
         'flex items-stretch overflow-hidden rounded-[4px] border bg-white transition-shadow hover:shadow-sm dark:bg-slate-900 ' +
-        (rank === 1 ? 'border-[#e6b800]' : 'border-[#d9d9d9] dark:border-slate-700')
+        (rank === 1 ? 'border-[#e6b800]' : 'border-[#e5e7eb] dark:border-slate-700')
       }
     >
       {rank !== undefined && (
         <div
           className={
-            'flex w-9 shrink-0 items-center justify-center border-r border-[#d9d9d9] text-sm font-bold dark:border-slate-700 ' +
+            'flex w-9 shrink-0 items-center justify-center border-r border-[#e5e7eb] text-sm font-bold dark:border-slate-700 ' +
             rankColor
           }
           aria-label={`Rank ${rank}`}
@@ -210,7 +210,7 @@ export function DealCard({
         {(post.price || post.listPrice) && (
           <div className="flex flex-wrap items-baseline gap-x-2 sm:hidden">
             {post.price && (
-              <span className="text-lg font-bold leading-none text-[#c62828] dark:text-rose-400">
+              <span className="text-lg font-bold leading-none text-[#16a34a] dark:text-emerald-400">
                 {post.price}
               </span>
             )}
@@ -254,7 +254,7 @@ export function DealCard({
             </span>
           )}
           {mine && isToday && (
-            <span className="font-bold text-[#c62828] dark:text-rose-400">
+            <span className="font-bold text-[#16a34a] dark:text-emerald-400">
               {voteCount >= MIN_VOTES
                 ? 'On today’s Top 10'
                 : `${votesLeft} more vote${votesLeft === 1 ? '' : 's'} to make the Top 10`}
@@ -266,7 +266,7 @@ export function DealCard({
 
       <div className="hidden w-28 shrink-0 flex-col items-end justify-center gap-0.5 pr-4 text-right sm:flex">
         {post.price && (
-          <span className="text-xl font-bold leading-tight text-[#c62828] dark:text-rose-400">
+          <span className="text-xl font-bold leading-tight text-[#16a34a] dark:text-emerald-400">
             {post.price}
           </span>
         )}

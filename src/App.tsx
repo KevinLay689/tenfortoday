@@ -14,7 +14,7 @@ import { SITE_NAME } from './lib/constants'
 const tabClass = ({ isActive }: { isActive: boolean }) =>
   'whitespace-nowrap border-b-[3px] px-3 py-2.5 text-sm font-bold transition ' +
   (isActive
-    ? 'border-[#c62828] text-[#c62828]'
+    ? 'border-[#0b4dc0] text-[#0b4dc0]'
     : 'border-transparent text-slate-600 hover:border-slate-300 hover:text-[#0b4dc0] dark:text-slate-300 dark:hover:text-blue-400')
 
 function Header({ onSignIn }: { onSignIn: () => void }) {
@@ -23,11 +23,11 @@ function Header({ onSignIn }: { onSignIn: () => void }) {
   const member = user && !isAnonymous
 
   return (
-    <header className="sticky top-0 z-30 border-b-2 border-[#0b1f3f] bg-white dark:border-slate-700 dark:bg-slate-950">
+    <header className="sticky top-0 z-30 border-b border-[#dbe1ea] bg-white dark:border-slate-700 dark:bg-slate-950">
       <div className="mx-auto flex max-w-5xl items-center gap-2 px-4">
         <NavLink to="/" className="flex shrink-0 items-center gap-1.5 py-2" aria-label={SITE_NAME}>
           <img src="/logo.svg" alt="" width={28} height={28} className="rounded-[3px]" />
-          <span className="text-lg font-bold tracking-tight text-[#0b1f3f] dark:text-white">
+          <span className="text-lg font-bold tracking-tight text-[#0b4dc0] dark:text-blue-400">
             TenFor<span className="text-[#c62828]">Today</span>
           </span>
         </NavLink>
@@ -82,7 +82,7 @@ function Header({ onSignIn }: { onSignIn: () => void }) {
 
 function Footer() {
   return (
-    <footer className="mt-10 border-t border-[#d9d9d9] bg-white py-6 dark:border-slate-700 dark:bg-slate-900">
+    <footer className="mt-10 border-t border-[#e5e7eb] bg-white py-6 dark:border-slate-700 dark:bg-slate-900">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-1.5 px-4 text-center">
         <div className="text-sm font-bold text-slate-500 dark:text-slate-400">
           TenFor<span className="text-[#c62828]">Today</span>

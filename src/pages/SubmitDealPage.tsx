@@ -184,8 +184,8 @@ export function SubmitDealPage() {
                 className={
                   'bg-[3px] px-3 py-1.5 text-xs font-bold transition ' +
                   (category === c.id
-                    ? 'bg-[#0b1f3f] text-white'
-                    : 'bg-white text-slate-600 border border-[#c9c9c9] hover:border-slate-400 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-600')
+                    ? 'bg-[#0b4dc0] text-white'
+                    : 'bg-white text-slate-600 border border-[#d1d5db] hover:border-slate-400 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-600')
                 }
               >
                 {c.emoji} {c.label}

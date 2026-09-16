@@ -73,7 +73,7 @@ export function BrowsePage() {
       </nav>
 
       {/* Search + sort */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#d9d9d9] pb-3 dark:border-slate-700">
+      <div className="flex flex-wrap items-center gap-2 border-b border-[#e5e7eb] pb-3 dark:border-slate-700">
         <div className="relative min-w-52 grow">
           <svg
             className="absolute top-1/2 left-2.5 -translate-y-1/2 text-slate-400"
@@ -93,7 +93,7 @@ export function BrowsePage() {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search deals…"
             aria-label="Search deals"
-            className="w-full rounded-[4px] border border-[#c9c9c9] bg-white py-1.5 pr-3 pl-8 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-[#0b4dc0] dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
+            className="w-full rounded-[4px] border border-[#d1d5db] bg-white py-1.5 pr-3 pl-8 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-[#0b4dc0] dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
           />
         </div>
         <div className="flex items-center text-xs font-bold">
@@ -111,7 +111,7 @@ export function BrowsePage() {
               className={
                 'px-2 py-1 transition ' +
                 (sort === id
-                  ? 'bg-[#0b1f3f] text-white'
+                  ? 'bg-[#0b4dc0] text-white'
                   : 'text-[#0b4dc0] hover:underline dark:text-blue-400')
               }
             >
@@ -172,8 +172,8 @@ function CategoryChip({ to, active, label }: { to: string; active: boolean; labe
       className={
         'shrink-0 whitespace-nowrap rounded-[3px] border px-3 py-1.5 text-xs font-bold transition ' +
         (active
-          ? 'border-[#0b1f3f] bg-[#0b1f3f] text-white'
-          : 'border-[#c9c9c9] bg-white text-slate-600 hover:border-[#0b4dc0] hover:text-[#0b4dc0] dark:border-slate-600 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-blue-400 dark:hover:text-blue-400')
+          ? 'border-[#0b4dc0] bg-[#0b4dc0] text-white'
+          : 'border-[#d1d5db] bg-white text-slate-600 hover:border-[#0b4dc0] hover:text-[#0b4dc0] dark:border-slate-600 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-blue-400 dark:hover:text-blue-400')
       }
     >
       {label}

@@ -8,7 +8,7 @@ export function EmptyState({
   children?: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col items-center gap-1.5 rounded-[4px] border border-[#d9d9d9] bg-white px-6 py-12 text-center dark:border-slate-700 dark:bg-slate-900">
+    <div className="flex flex-col items-center gap-1.5 rounded-[4px] border border-[#e5e7eb] bg-white px-6 py-12 text-center dark:border-slate-700 dark:bg-slate-900">
       <div className="text-3xl" aria-hidden>
         {icon}
       </div>
@@ -20,7 +20,7 @@ export function EmptyState({
 
 export function CardSkeleton() {
   return (
-    <div className="flex animate-pulse items-stretch overflow-hidden rounded-[4px] border border-[#d9d9d9] bg-white dark:border-slate-700 dark:bg-slate-900">
+    <div className="flex animate-pulse items-stretch overflow-hidden rounded-[4px] border border-[#e5e7eb] bg-white dark:border-slate-700 dark:bg-slate-900">
       <div className="w-11 bg-[#f0f0f0] dark:bg-slate-800" />
       <div className="m-2 h-[68px] w-[68px] rounded-[3px] bg-[#ececec] dark:bg-slate-800" />
       <div className="flex grow flex-col justify-center gap-2 p-3">
